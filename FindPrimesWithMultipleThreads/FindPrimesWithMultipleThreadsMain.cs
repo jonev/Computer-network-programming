@@ -10,10 +10,10 @@ namespace FindPrimesWithMultipleThreads
     class FindPrimesWithMultipleThreadsMain
     {
         private static int fromInt = 1;
-        private static int toInt = 100;
-        private static int maxNrOfThreads = 5;
+        private static int toInt = 10000;
+        private static int maxNrOfThreads = 10;
         private static object lockObject = new object();
-        private static object lockObject2 = new object();
+        private static object lockObject2 = new object(); // needs to object so that candidate and primes are not locked at the same time
         private static List<int> primes = new List<int>();
 
 
@@ -33,7 +33,7 @@ namespace FindPrimesWithMultipleThreads
             int currentInt = fromInt;
             var tasks = new List<Task>();
             
-            for (int i = 0; i < maxNrOfThreads; i++)
+            for (int i = 0; i < maxNrOfThreads; i++) // starting the Threads
             {
                 tasks.Add(Task.Run( () => new FindPrime().Find(ref currentInt, primes)));
             }
@@ -56,7 +56,8 @@ namespace FindPrimesWithMultipleThreads
             public void Find(ref int candidate, List<int> primes)
             {
                 Console.WriteLine("Starting TaskId {0}", Task.CurrentId);
-
+                // need to save the current int this thread is working on
+                // so isPrime() can do the work without locking the rest of the threads
                 int currentCandidate;
             start:
                 lock (lockObject) // secures that nobody uses candidate at the same time
