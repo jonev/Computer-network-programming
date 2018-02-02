@@ -10,14 +10,26 @@ namespace FindPrimesWithMultipleThreads
     class FindPrimesWithMultipleThreadsMain
     {
         private static int fromInt = 1;
-        private static int toInt = 10000;
+        private static int toInt = 1000000;
+        private static int nrOfThreads = 0;
         private static int maxNrOfThreads = 10;
         private static object lockObject = new object();
         private static object lockObject2 = new object(); // needs to object so that candidate and primes are not locked at the same time
+        private static object lockObject3 = new object();
+        private static object lockObject4 = new object();
+
         private static List<int> primes = new List<int>();
+        private static List<int> nrOfCalculationDone = new List<int>();
+        private static Int32 currentInt = fromInt;
+
 
 
         static void Main(string[] args)
+        {
+            new FindPrimesWithMultipleThreadsMain().Run();
+        }
+
+        private void Run()
         {
             // TEST of isPrime()
             Console.WriteLine(isPrime(1));
@@ -30,41 +42,57 @@ namespace FindPrimesWithMultipleThreads
 
 
             Console.WriteLine("Main starts");
-            int currentInt = fromInt;
-            var tasks = new List<Task>();
             
-            for (int i = 0; i < maxNrOfThreads; i++) // starting the Threads
-            {
-                tasks.Add(Task.Run( () => new FindPrime().Find(ref currentInt, primes)));
-            }
+
+            FindPrime fp = new FindPrime();
+            Thread t = new Thread(new ThreadStart(fp.Find));
+            t.Start(); // starts the first thread
 
             Console.WriteLine("Main waits");
-            Task.WaitAll(tasks.ToArray());
+            t.Join();
+            // primes.Sort(); // to havy for current nr of calculations
             Console.WriteLine("Nr of prims:{0}", primes.Count);
-            for (int i = 0; i < primes.Count; i++)
+            //for (int i = 0; i < primes.Count; i++) // to havy for current nr of calculations
+            //{
+            //    Console.Write(" " + primes[i]);
+            //}
+            Console.WriteLine("");
+            Console.WriteLine("Calculation per Thread:");
+            for (int i = 0; i < nrOfCalculationDone.Count; i++)
             {
-                Console.Write(" " + primes[i]);
+                Console.Write(" " + nrOfCalculationDone[i]);
             }
             Console.WriteLine("");
             Console.WriteLine("Main stops");
             Console.ReadKey();
-
         }
 
         class FindPrime
         {
-            public void Find(ref int candidate, List<int> primes)
+            public void Find()
             {
-                Console.WriteLine("Starting TaskId {0}", Task.CurrentId);
+                int nrOfCalculationDonByThis = 0;
+                Thread t = null;
+                lock (lockObject3)
+                {
+                    if(nrOfThreads < maxNrOfThreads-1)
+                    {
+                        nrOfThreads++;
+                        FindPrime fp = new FindPrime();
+                        t = new Thread(new ThreadStart(fp.Find));
+                        t.Start();
+                    }
+                }
+                Console.WriteLine("Starting ThreadId {0}", Thread.CurrentThread.ManagedThreadId);
                 // need to save the current int this thread is working on
                 // so isPrime() can do the work without locking the rest of the threads
                 int currentCandidate;
-            start:
+            calculateNext:
                 lock (lockObject) // secures that nobody uses candidate at the same time
                 {
-                    if (++candidate > toInt) return;
-                    Console.WriteLine("TaskId {0}, candidate {1}", Task.CurrentId, candidate);
-                    currentCandidate = candidate;
+                    if (++currentInt > toInt) goto wait;
+                    //Console.WriteLine("ThreadId {0}, candidate {1}", Thread.CurrentThread.ManagedThreadId, currentInt);
+                    currentCandidate = currentInt;
                 }
 
                 if (isPrime(currentCandidate))
@@ -74,9 +102,18 @@ namespace FindPrimesWithMultipleThreads
                         primes.Add(currentCandidate);
                     }
                 }
-                goto start; // ready to calculate on next candidate
+                nrOfCalculationDonByThis++;
+                goto calculateNext; // ready to calculate on next candidate
+            wait:
+                Console.WriteLine("{0} Thread waiting", Thread.CurrentThread.ManagedThreadId);
+                if (t != null) t.Join(); // waits to make sure that main thread is waiting until all threads are finished
+                lock (lockObject4)
+                {
+                    nrOfCalculationDone.Add(nrOfCalculationDonByThis); // saves the current nr of calculation done by this thread to compare the work pr thread
+                }
             }
         }
+        
 
         // This needs a check and a unittest
         public static bool isPrime(int candidate)
