@@ -22,10 +22,10 @@ namespace WCFClient.ServiceReference {
         System.Threading.Tasks.Task<int> ChangeNrInStockAsync(int nr, int inStock);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/AddItem", ReplyAction="http://tempuri.org/IService/AddItemResponse")]
-        int AddItem(int inStock);
+        int AddItem(string name, int inStock);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/AddItem", ReplyAction="http://tempuri.org/IService/AddItemResponse")]
-        System.Threading.Tasks.Task<int> AddItemAsync(int inStock);
+        System.Threading.Tasks.Task<int> AddItemAsync(string name, int inStock);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/GetList", ReplyAction="http://tempuri.org/IService/GetListResponse")]
         string GetList();
@@ -69,12 +69,12 @@ namespace WCFClient.ServiceReference {
             return base.Channel.ChangeNrInStockAsync(nr, inStock);
         }
         
-        public int AddItem(int inStock) {
-            return base.Channel.AddItem(inStock);
+        public int AddItem(string name, int inStock) {
+            return base.Channel.AddItem(name, inStock);
         }
         
-        public System.Threading.Tasks.Task<int> AddItemAsync(int inStock) {
-            return base.Channel.AddItemAsync(inStock);
+        public System.Threading.Tasks.Task<int> AddItemAsync(string name, int inStock) {
+            return base.Channel.AddItemAsync(name, inStock);
         }
         
         public string GetList() {
