@@ -30,6 +30,17 @@ namespace WCFClient
                         // TODO denne oppdaterer ikke instansens data - client = new ServiceReference.ServiceClient();
                         Console.WriteLine(client.GetList());
                         break;
+                    case "a":
+                        Console.WriteLine("Add item: int startNr, String startName, String startSupplier, int startInStock, int startLowerBoundry");
+                        int nr = -1;
+                        int inStock = -1;
+                        Int32.TryParse(Console.ReadLine(), out nr);
+                        Int32.TryParse(Console.ReadLine(), out inStock);
+                        Console.WriteLine(client.ChangeNrInStock(nr, inStock));
+                        // TODO denne oppdaterer ikke instansens data - client = new ServiceReference.ServiceClient();
+                        Console.WriteLine(client.GetList());
+                        break;
+
                     default:
                         Console.WriteLine("Unknown command");
                         break;

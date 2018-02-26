@@ -10,18 +10,24 @@ namespace WcfServiceLibrary
     [ServiceContract]
     public interface IService
     {
-        // [OperationContract]
-        // string GetData(string value);
-
+        
         [OperationContract]
         int ChangeNrInStock(int nr, int inStock);
 
         [OperationContract]
-        int AddItem(int inStock);
+        int AddItem(int startNr, String startName, string startSupplier, int startInStock, int startLowerBoundry);
 
         [OperationContract]
         string GetList();
-        // TODO: Add your service operations here
+        
+        [OperationContract]
+        int ChangeNrInStock(int nr, int inStock);
+
+        [OperationContract]
+        int findItemIndex(int nr);
+        
+        [OperationContract]
+        string createOrderList();
     }
 
     // Use a data contract as illustrated in the sample below to add composite types to service operations.
