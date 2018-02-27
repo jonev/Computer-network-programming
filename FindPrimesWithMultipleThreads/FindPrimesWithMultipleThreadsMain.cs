@@ -32,13 +32,39 @@ namespace FindPrimesWithMultipleThreads
         private void Run()
         {
             // TEST of isPrime()
-            Console.WriteLine(isPrime(1));
-            Console.WriteLine(isPrime(2));
-            Console.WriteLine(isPrime(3));
-            Console.WriteLine(isPrime(4));
-            Console.WriteLine(isPrime(7));
-            Console.WriteLine(isPrime(9));
-            Console.WriteLine(isPrime(13));
+            if (!isPrime(1))
+            {
+                Console.WriteLine("Test 1 succeeded");
+            }
+            if (isPrime(2))
+            {
+                Console.WriteLine("Test 2 succeeded");
+            }
+            if (isPrime(3))
+            {
+                Console.WriteLine("Test 3 succeeded");
+            }
+            if (!isPrime(4))
+            {
+                Console.WriteLine("Test 4 succeeded");
+            }
+            if (isPrime(7))
+            {
+                Console.WriteLine("Test 5 succeeded");
+            }
+            if (!isPrime(9))
+            {
+                Console.WriteLine("Test 6 succeeded");
+            }
+            if (isPrime(13))
+            {
+                Console.WriteLine("Test 7 succeeded");
+            }
+            if (isPrime(165887))
+            {
+                Console.WriteLine("Test 8 succeeded");
+            }
+
 
 
             Console.WriteLine("Main starts");
