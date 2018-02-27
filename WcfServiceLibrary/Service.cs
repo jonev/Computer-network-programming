@@ -7,22 +7,21 @@ using System.Text;
 
 namespace WcfServiceLibrary
 {
-    // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "Service1" in both code and config file together.
     public class Service : IService
     {
         public const int ok = -1;
         public const int invalidNr = -2;
         public const int outOfStock = -3;
-        private IList<Item> items = new List<Item>();
+        private static IList<Item> items = new List<Item>();
 
-        public Service()
+        public Service() { }
+        static Service()
         {
-            AddItem(5);
-            AddItem(5);
-            AddItem(5);
-            AddItem(5);
-            AddItem(5);
-
+            items.Add(new Item(1, "PC", "PC supplier", 50, 5));
+            items.Add(new Item(1, "Charger", "PC supplier", 150, 10));
+            items.Add(new Item(1, "Monitor", "PC supplier", 20, 3));
+            items.Add(new Item(1, "Desk, large", "Desk supplier", 5, 1));
+            items.Add(new Item(1, "Desk, small", "Desk supplier", 20, 2));
         }
 
         public bool AddItem(int startNr, String startName, String startSupplier, int startInStock, int startLowerBoundry) {
