@@ -13,7 +13,6 @@ namespace WcfServiceLibrary
         public const int invalidNr = -2;
         public const int outOfStock = -3;
         private static IList<Item> items = new List<Item>();
-        private static object lockObject = new object();
 
         public Service() { }
         static Service()
@@ -24,38 +23,25 @@ namespace WcfServiceLibrary
             items.Add(new Item(4, "Desk, large", "Desk supplier", 5, 1));
             items.Add(new Item(5, "Desk, small", "Desk supplier", 20, 2));
         }
-
-        public bool AddItem(int nr, string name, string supplier, int inStock, int lowerBoundry)
-        {
-            lock (lockObject)
-            {
-                if (findItemIndex(nr) < 0)
-                { // Does not already exist
-                    Item toAdd = new Item(nr, name, supplier, inStock, lowerBoundry);
-                    items.Add(toAdd);
-                    return true;
-                }
-                else return false;
-            }
-        }
+        
+        public bool AddItem(int nr, string name, string supplier, int inStock, int lowerBoundry) {
+           if (findItemIndex(nr) < 0) { // Does not already exist
+             Item toAdd = new Item(nr, name, supplier, inStock, lowerBoundry);
+             items.Add(toAdd);
+             return true;
+           } else return false;
+          }
         
 
         public int ChangeNrInStock(int nr, int inStock)
         {
-            lock (lockObject)
-            {
-                int indeks = findItemIndex(nr);
-                if (indeks < 0) return invalidNr;
-                else
-                {
-                    if (!(items[nr].changeInStock(inStock)))
-                    {
-                        return outOfStock;
-                    }
-                    else return ok;
-                }
+            int indeks = findItemIndex(nr);
+            if (indeks < 0) return invalidNr;
+            else {
+              if (!(items[nr-1].changeInStock(inStock))) {
+                return outOfStock;
+              } else return ok;
             }
-
         }
 
         public int findItemIndex(int nr) {
