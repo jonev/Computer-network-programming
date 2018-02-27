@@ -15,14 +15,11 @@ namespace WcfServiceLibrary
         int ChangeNrInStock(int nr, int inStock);
 
         [OperationContract]
-        int AddItem(int startNr, String startName, string startSupplier, int startInStock, int startLowerBoundry);
+        bool AddItem(int nr, string name, string supplier, int inStock, int lowerBoundry);
 
         [OperationContract]
         string GetList();
         
-        [OperationContract]
-        int ChangeNrInStock(int nr, int inStock);
-
         [OperationContract]
         int findItemIndex(int nr);
         

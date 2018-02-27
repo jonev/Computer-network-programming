@@ -24,6 +24,18 @@
   <wsdl:message name="IService_GetList_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetListResponse" />
   </wsdl:message>
+  <wsdl:message name="IService_findItemIndex_InputMessage">
+    <wsdl:part name="parameters" element="tns:findItemIndex" />
+  </wsdl:message>
+  <wsdl:message name="IService_findItemIndex_OutputMessage">
+    <wsdl:part name="parameters" element="tns:findItemIndexResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService_createOrderList_InputMessage">
+    <wsdl:part name="parameters" element="tns:createOrderList" />
+  </wsdl:message>
+  <wsdl:message name="IService_createOrderList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:createOrderListResponse" />
+  </wsdl:message>
   <wsdl:portType name="IService">
     <wsdl:operation name="ChangeNrInStock">
       <wsdl:input wsaw:Action="http://tempuri.org/IService/ChangeNrInStock" message="tns:IService_ChangeNrInStock_InputMessage" />
@@ -36,6 +48,14 @@
     <wsdl:operation name="GetList">
       <wsdl:input wsaw:Action="http://tempuri.org/IService/GetList" message="tns:IService_GetList_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IService/GetListResponse" message="tns:IService_GetList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="findItemIndex">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService/findItemIndex" message="tns:IService_findItemIndex_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService/findItemIndexResponse" message="tns:IService_findItemIndex_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="createOrderList">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService/createOrderList" message="tns:IService_createOrderList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService/createOrderListResponse" message="tns:IService_createOrderList_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IService" type="tns:IService">
@@ -60,6 +80,24 @@
     </wsdl:operation>
     <wsdl:operation name="GetList">
       <soap:operation soapAction="http://tempuri.org/IService/GetList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="findItemIndex">
+      <soap:operation soapAction="http://tempuri.org/IService/findItemIndex" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createOrderList">
+      <soap:operation soapAction="http://tempuri.org/IService/createOrderList" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
