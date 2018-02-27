@@ -18,10 +18,10 @@ namespace WcfServiceLibrary
         static Service()
         {
             items.Add(new Item(1, "PC", "PC supplier", 50, 5));
-            items.Add(new Item(1, "Charger", "PC supplier", 150, 10));
-            items.Add(new Item(1, "Monitor", "PC supplier", 20, 3));
-            items.Add(new Item(1, "Desk, large", "Desk supplier", 5, 1));
-            items.Add(new Item(1, "Desk, small", "Desk supplier", 20, 2));
+            items.Add(new Item(2, "Charger", "PC supplier", 150, 10));
+            items.Add(new Item(3, "Monitor", "PC supplier", 20, 3));
+            items.Add(new Item(4, "Desk, large", "Desk supplier", 5, 1));
+            items.Add(new Item(5, "Desk, small", "Desk supplier", 20, 2));
         }
         
         public bool AddItem(int nr, string name, string supplier, int inStock, int lowerBoundry) {
@@ -38,7 +38,7 @@ namespace WcfServiceLibrary
             int indeks = findItemIndex(nr);
             if (indeks < 0) return invalidNr;
             else {
-              if (!(items[nr].changeInStock(inStock))) {
+              if (!(items[nr-1].changeInStock(inStock))) {
                 return outOfStock;
               } else return ok;
             }
