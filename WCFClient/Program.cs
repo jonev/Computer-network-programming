@@ -29,13 +29,6 @@ namespace WCFClient
                         Console.WriteLine(client.ChangeNrInStock(nr, inStock));
                         Console.WriteLine(client.GetList());
                         break;
-                    case "a":
-                        Console.WriteLine("Add item, name then in stock");
-                        string name = Console.ReadLine();
-                        Int32.TryParse(Console.ReadLine(), out inStock);
-                        Console.WriteLine(client.AddItem(name, inStock));
-                        Console.WriteLine(client.GetList());
-                        break;
                     case "g":
                         Console.WriteLine(client.GetList());
                         break;
