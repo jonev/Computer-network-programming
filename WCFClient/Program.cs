@@ -15,7 +15,7 @@ namespace WCFClient
             string input = "nothing";
             while (!input.Equals("exit"))
             {
-                Console.WriteLine("Enter input (\"exit\" to exit app)\nc: change in stock\na:add item\ng:get list");
+                Console.WriteLine("Enter input (\"exit\" to exit app)\nc: change in stock\na:add item\ng:get list\no: get order list");
                 input = Console.ReadLine();
                 int inStock = -1;
                 int nr = -1;
