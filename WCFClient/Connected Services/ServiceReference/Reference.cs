@@ -22,16 +22,28 @@ namespace WCFClient.ServiceReference {
         System.Threading.Tasks.Task<int> ChangeNrInStockAsync(int nr, int inStock);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/AddItem", ReplyAction="http://tempuri.org/IService/AddItemResponse")]
-        int AddItem(string name, int inStock);
+        bool AddItem(int nr, string name, string supplier, int inStock, int lowerBoundry);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/AddItem", ReplyAction="http://tempuri.org/IService/AddItemResponse")]
-        System.Threading.Tasks.Task<int> AddItemAsync(string name, int inStock);
+        System.Threading.Tasks.Task<bool> AddItemAsync(int nr, string name, string supplier, int inStock, int lowerBoundry);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/GetList", ReplyAction="http://tempuri.org/IService/GetListResponse")]
         string GetList();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/GetList", ReplyAction="http://tempuri.org/IService/GetListResponse")]
         System.Threading.Tasks.Task<string> GetListAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/findItemIndex", ReplyAction="http://tempuri.org/IService/findItemIndexResponse")]
+        int findItemIndex(int nr);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/findItemIndex", ReplyAction="http://tempuri.org/IService/findItemIndexResponse")]
+        System.Threading.Tasks.Task<int> findItemIndexAsync(int nr);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/createOrderList", ReplyAction="http://tempuri.org/IService/createOrderListResponse")]
+        string createOrderList();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/createOrderList", ReplyAction="http://tempuri.org/IService/createOrderListResponse")]
+        System.Threading.Tasks.Task<string> createOrderListAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -69,12 +81,12 @@ namespace WCFClient.ServiceReference {
             return base.Channel.ChangeNrInStockAsync(nr, inStock);
         }
         
-        public int AddItem(string name, int inStock) {
-            return base.Channel.AddItem(name, inStock);
+        public bool AddItem(int nr, string name, string supplier, int inStock, int lowerBoundry) {
+            return base.Channel.AddItem(nr, name, supplier, inStock, lowerBoundry);
         }
         
-        public System.Threading.Tasks.Task<int> AddItemAsync(string name, int inStock) {
-            return base.Channel.AddItemAsync(name, inStock);
+        public System.Threading.Tasks.Task<bool> AddItemAsync(int nr, string name, string supplier, int inStock, int lowerBoundry) {
+            return base.Channel.AddItemAsync(nr, name, supplier, inStock, lowerBoundry);
         }
         
         public string GetList() {
@@ -83,6 +95,22 @@ namespace WCFClient.ServiceReference {
         
         public System.Threading.Tasks.Task<string> GetListAsync() {
             return base.Channel.GetListAsync();
+        }
+        
+        public int findItemIndex(int nr) {
+            return base.Channel.findItemIndex(nr);
+        }
+        
+        public System.Threading.Tasks.Task<int> findItemIndexAsync(int nr) {
+            return base.Channel.findItemIndexAsync(nr);
+        }
+        
+        public string createOrderList() {
+            return base.Channel.createOrderList();
+        }
+        
+        public System.Threading.Tasks.Task<string> createOrderListAsync() {
+            return base.Channel.createOrderListAsync();
         }
     }
 }

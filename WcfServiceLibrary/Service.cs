@@ -23,11 +23,11 @@ namespace WcfServiceLibrary
             items.Add(new Item(1, "Desk, large", "Desk supplier", 5, 1));
             items.Add(new Item(1, "Desk, small", "Desk supplier", 20, 2));
         }
-
-        public bool AddItem(int startNr, String startName, String startSupplier, int startInStock, int startLowerBoundry) {
-           if (findItemIndex(startNr) < 0) { // Does not already exist
-             Item toAdd = new Item(startNr, startName, startSupplier, startInStock, startLowerBoundry);
-             items.add(nytt);
+        
+        public bool AddItem(int nr, string name, string supplier, int inStock, int lowerBoundry) {
+           if (findItemIndex(nr) < 0) { // Does not already exist
+             Item toAdd = new Item(nr, name, supplier, inStock, lowerBoundry);
+             items.Add(toAdd);
              return true;
            } else return false;
           }
@@ -38,16 +38,15 @@ namespace WcfServiceLibrary
             int indeks = findItemIndex(nr);
             if (indeks < 0) return invalidNr;
             else {
-              if (!(items.get(indeks)).setInStock(mengde)) {
+              if (!(items[nr].changeInStock(inStock))) {
                 return outOfStock;
               } else return ok;
             }
         }
 
-        private int findItemIndex(int nr) {
+        public int findItemIndex(int nr) {
             for (int i = 0; i < items.Count; i++) {
-              int foundNr = (items.get(i)).getNr();
-              if (foundNr == nr) return i;
+              if (items[i].Nr == nr) return i;
             }
             return -1;
           }
@@ -56,8 +55,8 @@ namespace WcfServiceLibrary
         public String createOrderList() {
             String result = "\n\nOrder list:\n";
             foreach (Item i in items) {
-              result += i.getNr() + ", " + u.getName() + ": " +
-                          u.getBestQuantum() + "\n";
+              result += i.Nr + ", " + i.Name + ": " +
+                          i.getBestQuantum() + "\n";
             }
             return result;
           }
@@ -71,36 +70,28 @@ namespace WcfServiceLibrary
             }
             return res;
         }
+
+        
     }   
 
 
     public class Item
     {
-        public static const int orderFactor = 5;
-        private String Supplier{get;}
+        public const int orderFactor = 5;
+        private string Supplier{get;}
         private int LowerBoundry{get;set;}
-        private int InStock{get;}
+        private int InStock{ get; set; }
         public int Nr { get; private set; } //unique number. 
-        public int InStock
-        {
-            get { return inStock; }
-            set { inStock = value; }
-        }
         public string Name { get; private set; }
 
-        public Item(int startNr, String startName, String startSupplier, int startInStock, int startLowerBoundry) {
-            nr = startNr;
-            betegnelse = startBetegnelse;
-            leverandør = startLeverandør;
-            påLager = startPåLager;
-            nedreGrense = startNedreGrense;
-  }
-
-        public override string ToString()
-        {
-            return @"Nr: " + this.Nr + " in stock: " + this.InStock;
+        public Item(int nr, string name, string supplier, int inStock, int lowerBoundry) {
+            Supplier = supplier;
+            LowerBoundry = lowerBoundry;
+            InStock = inStock;
+            Nr = nr;
+            Name = name;
         }
-    
+
         public int getBestQuantum() {
             if (InStock < LowerBoundry) return orderFactor * LowerBoundry;
             else return 0;
@@ -110,8 +101,8 @@ namespace WcfServiceLibrary
            * Positive or negative, it should not be possible to remove more than in stock.
            * *If the klient tries, method returns false.
            */
-          public boolean endreLagerbeholdning(int change) {
-            Console.WriteLine("Editing stock, item nr " + nr + ", change: " + change);
+          public bool changeInStock(int change) {
+            Console.WriteLine("Editing stock, item nr " + Nr + ", change: " + change);
             if (InStock + change < 0) return false;
             else {
               InStock += change;
@@ -119,12 +110,12 @@ namespace WcfServiceLibrary
             }
           }
 
-          public override String toString() {
-            String result = "Nr: " + nr + ", " +
+          public override string ToString() {
+            string result = "Nr: " + Nr + ", " +
               "Name: " + Name + ", " + "Supplier: " +
                Supplier + ", " + "In stock: " + InStock + ", " +
               "Lower boundry: " + LowerBoundry;
-            return resultat;
+            return result;
           }
 }
 
