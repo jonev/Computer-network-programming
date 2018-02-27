@@ -13,35 +13,49 @@ namespace WcfServiceLibrary
         public const int invalidNr = -2;
         public const int outOfStock = -3;
         private static IList<Item> items = new List<Item>();
+        private static object lockObject = new object();
 
         public Service() { }
         static Service()
         {
             items.Add(new Item(1, "PC", "PC supplier", 50, 5));
-            items.Add(new Item(1, "Charger", "PC supplier", 150, 10));
-            items.Add(new Item(1, "Monitor", "PC supplier", 20, 3));
-            items.Add(new Item(1, "Desk, large", "Desk supplier", 5, 1));
-            items.Add(new Item(1, "Desk, small", "Desk supplier", 20, 2));
+            items.Add(new Item(2, "Charger", "PC supplier", 150, 10));
+            items.Add(new Item(3, "Monitor", "PC supplier", 20, 3));
+            items.Add(new Item(4, "Desk, large", "Desk supplier", 5, 1));
+            items.Add(new Item(5, "Desk, small", "Desk supplier", 20, 2));
         }
-        
-        public bool AddItem(int nr, string name, string supplier, int inStock, int lowerBoundry) {
-           if (findItemIndex(nr) < 0) { // Does not already exist
-             Item toAdd = new Item(nr, name, supplier, inStock, lowerBoundry);
-             items.Add(toAdd);
-             return true;
-           } else return false;
-          }
+
+        public bool AddItem(int nr, string name, string supplier, int inStock, int lowerBoundry)
+        {
+            lock (lockObject)
+            {
+                if (findItemIndex(nr) < 0)
+                { // Does not already exist
+                    Item toAdd = new Item(nr, name, supplier, inStock, lowerBoundry);
+                    items.Add(toAdd);
+                    return true;
+                }
+                else return false;
+            }
+        }
         
 
         public int ChangeNrInStock(int nr, int inStock)
         {
-            int indeks = findItemIndex(nr);
-            if (indeks < 0) return invalidNr;
-            else {
-              if (!(items[nr].changeInStock(inStock))) {
-                return outOfStock;
-              } else return ok;
+            lock (lockObject)
+            {
+                int indeks = findItemIndex(nr);
+                if (indeks < 0) return invalidNr;
+                else
+                {
+                    if (!(items[nr].changeInStock(inStock)))
+                    {
+                        return outOfStock;
+                    }
+                    else return ok;
+                }
             }
+
         }
 
         public int findItemIndex(int nr) {

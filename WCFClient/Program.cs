@@ -43,6 +43,9 @@ namespace WCFClient
                     case "g":
                         Console.WriteLine(client.GetList());
                         break;
+                    case "o":
+                        Console.WriteLine(client.createOrderList());
+                        break;
                     default:
                         Console.WriteLine("Unknown command");
                         break;
