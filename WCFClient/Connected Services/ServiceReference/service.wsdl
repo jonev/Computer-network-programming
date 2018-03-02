@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="Service" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import namespace="http://tempuri.org/" />
+      <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IService_ChangeNrInStock_InputMessage">
+    <wsdl:part name="parameters" element="tns:ChangeNrInStock" />
+  </wsdl:message>
+  <wsdl:message name="IService_ChangeNrInStock_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ChangeNrInStockResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService_AddItem_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddItem" />
+  </wsdl:message>
+  <wsdl:message name="IService_AddItem_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddItemResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService_GetList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetList" />
+  </wsdl:message>
+  <wsdl:message name="IService_GetList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetListResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService_findItemIndex_InputMessage">
+    <wsdl:part name="parameters" element="tns:findItemIndex" />
+  </wsdl:message>
+  <wsdl:message name="IService_findItemIndex_OutputMessage">
+    <wsdl:part name="parameters" element="tns:findItemIndexResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService_createOrderList_InputMessage">
+    <wsdl:part name="parameters" element="tns:createOrderList" />
+  </wsdl:message>
+  <wsdl:message name="IService_createOrderList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:createOrderListResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IService">
+    <wsdl:operation name="ChangeNrInStock">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService/ChangeNrInStock" message="tns:IService_ChangeNrInStock_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService/ChangeNrInStockResponse" message="tns:IService_ChangeNrInStock_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddItem">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService/AddItem" message="tns:IService_AddItem_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService/AddItemResponse" message="tns:IService_AddItem_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetList">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService/GetList" message="tns:IService_GetList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService/GetListResponse" message="tns:IService_GetList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="findItemIndex">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService/findItemIndex" message="tns:IService_findItemIndex_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService/findItemIndexResponse" message="tns:IService_findItemIndex_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="createOrderList">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService/createOrderList" message="tns:IService_createOrderList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService/createOrderListResponse" message="tns:IService_createOrderList_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IService" type="tns:IService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ChangeNrInStock">
+      <soap:operation soapAction="http://tempuri.org/IService/ChangeNrInStock" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddItem">
+      <soap:operation soapAction="http://tempuri.org/IService/AddItem" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetList">
+      <soap:operation soapAction="http://tempuri.org/IService/GetList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="findItemIndex">
+      <soap:operation soapAction="http://tempuri.org/IService/findItemIndex" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createOrderList">
+      <soap:operation soapAction="http://tempuri.org/IService/createOrderList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Service">
+    <wsdl:port name="BasicHttpBinding_IService" binding="tns:BasicHttpBinding_IService">
+      <soap:address location="http://localhost:8733/Design_Time_Addresses/WcfServiceLibrary/Service1/" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
