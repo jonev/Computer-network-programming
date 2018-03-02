@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2027
+VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FindPrimesWithMultipleThreads", "FindPrimesWithMultipleThreads\FindPrimesWithMultipleThreads.csproj", "{57FE58C2-486C-43C3-8A2B-2DFF1FA1C6DB}"
 EndProject
@@ -21,6 +21,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WCFClient", "WCFClient\WCFC
 	ProjectSection(ProjectDependencies) = postProject
 		{1D56E77F-9A68-4902-A760-2B559E99C84A} = {1D56E77F-9A68-4902-A760-2B559E99C84A}
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TCPServer", "TCPServer\TCPServer.csproj", "{6E859A20-AA5C-4F60-892E-361034B8FD92}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TCPClient", "TCPClient\TCPClient.csproj", "{772AB736-A901-4508-B80F-1719C6B7FC9D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -102,6 +106,38 @@ Global
 		{784318A0-FEEE-4F05-BB4F-F0AF17B9A550}.Release|x64.Build.0 = Release|Any CPU
 		{784318A0-FEEE-4F05-BB4F-F0AF17B9A550}.Release|x86.ActiveCfg = Release|Any CPU
 		{784318A0-FEEE-4F05-BB4F-F0AF17B9A550}.Release|x86.Build.0 = Release|Any CPU
+		{6E859A20-AA5C-4F60-892E-361034B8FD92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E859A20-AA5C-4F60-892E-361034B8FD92}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E859A20-AA5C-4F60-892E-361034B8FD92}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{6E859A20-AA5C-4F60-892E-361034B8FD92}.Debug|ARM.Build.0 = Debug|Any CPU
+		{6E859A20-AA5C-4F60-892E-361034B8FD92}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{6E859A20-AA5C-4F60-892E-361034B8FD92}.Debug|x64.Build.0 = Debug|Any CPU
+		{6E859A20-AA5C-4F60-892E-361034B8FD92}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{6E859A20-AA5C-4F60-892E-361034B8FD92}.Debug|x86.Build.0 = Debug|Any CPU
+		{6E859A20-AA5C-4F60-892E-361034B8FD92}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E859A20-AA5C-4F60-892E-361034B8FD92}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E859A20-AA5C-4F60-892E-361034B8FD92}.Release|ARM.ActiveCfg = Release|Any CPU
+		{6E859A20-AA5C-4F60-892E-361034B8FD92}.Release|ARM.Build.0 = Release|Any CPU
+		{6E859A20-AA5C-4F60-892E-361034B8FD92}.Release|x64.ActiveCfg = Release|Any CPU
+		{6E859A20-AA5C-4F60-892E-361034B8FD92}.Release|x64.Build.0 = Release|Any CPU
+		{6E859A20-AA5C-4F60-892E-361034B8FD92}.Release|x86.ActiveCfg = Release|Any CPU
+		{6E859A20-AA5C-4F60-892E-361034B8FD92}.Release|x86.Build.0 = Release|Any CPU
+		{772AB736-A901-4508-B80F-1719C6B7FC9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{772AB736-A901-4508-B80F-1719C6B7FC9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{772AB736-A901-4508-B80F-1719C6B7FC9D}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{772AB736-A901-4508-B80F-1719C6B7FC9D}.Debug|ARM.Build.0 = Debug|Any CPU
+		{772AB736-A901-4508-B80F-1719C6B7FC9D}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{772AB736-A901-4508-B80F-1719C6B7FC9D}.Debug|x64.Build.0 = Debug|Any CPU
+		{772AB736-A901-4508-B80F-1719C6B7FC9D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{772AB736-A901-4508-B80F-1719C6B7FC9D}.Debug|x86.Build.0 = Debug|Any CPU
+		{772AB736-A901-4508-B80F-1719C6B7FC9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{772AB736-A901-4508-B80F-1719C6B7FC9D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{772AB736-A901-4508-B80F-1719C6B7FC9D}.Release|ARM.ActiveCfg = Release|Any CPU
+		{772AB736-A901-4508-B80F-1719C6B7FC9D}.Release|ARM.Build.0 = Release|Any CPU
+		{772AB736-A901-4508-B80F-1719C6B7FC9D}.Release|x64.ActiveCfg = Release|Any CPU
+		{772AB736-A901-4508-B80F-1719C6B7FC9D}.Release|x64.Build.0 = Release|Any CPU
+		{772AB736-A901-4508-B80F-1719C6B7FC9D}.Release|x86.ActiveCfg = Release|Any CPU
+		{772AB736-A901-4508-B80F-1719C6B7FC9D}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
