@@ -1,0 +1,17 @@
+{
+  "name": "nodejs-server",
+  "version": "0.0.0",
+  "description": "NodejsServer",
+  "main": "app.js",
+  "author": {
+    "name": "jonev"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.3"
+  },
+  "devDependencies": {
+    "@types/node": "^6.0.87",
+    "@types/express": "^4.0.37"
+  }
+}
