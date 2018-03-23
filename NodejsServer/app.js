@@ -36,16 +36,15 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
+// source
+// https://github.com/ntnu-tdat2004/react-example
 var express = require("express");
 var bodyParser = require("body-parser");
 require("reflect-metadata");
 var databaseService_1 = require("./databaseService");
 var typeorm_1 = require("typeorm");
-//import { dbService } from './databaseService';
 console.log('Server starting');
 var server = express();
-// Serve the React client
-server.use(express.static(__dirname + '/../../client'));
 // Automatically parse json content
 server.use(bodyParser.json());
 console.log("Creating connection");
@@ -57,7 +56,9 @@ typeorm_1.createConnection({
     password: "MSLSFNi7",
     database: "jonev",
     entities: [
-        databaseService_1.Article
+        databaseService_1.Article,
+        databaseService_1.ArticleComment,
+        databaseService_1.Category
     ],
     synchronize: true,
     logging: false
@@ -67,74 +68,147 @@ typeorm_1.createConnection({
         return [2 /*return*/];
     });
 }); }).catch(function (error) { return console.log(error); });
-// The data is currently stored in memory
-//let articles = [new Article('title1', 'abstract1', 'text1'), new Article('title2', 'abstract2', 'text2'), new Article('title3', 'abstract3', 'text3')];
-// Get all articles
+// Get all articles - without comments
 server.get('/articles', function (request, response) { return __awaiter(_this, void 0, void 0, function () {
     var _a, _b;
     return __generator(this, function (_c) {
         switch (_c.label) {
             case 0:
                 _b = (_a = response).send;
-                return [4 /*yield*/, typeorm_1.getConnection().getRepository(databaseService_1.Article).find()];
+                return [4 /*yield*/, typeorm_1.getConnection().getRepository(databaseService_1.Article).find({ relations: ["categories"] })];
             case 1:
                 _b.apply(_a, [_c.sent()]);
                 return [2 /*return*/];
         }
     });
 }); });
-/*
-// Get an article given its id
-server.get('/articles/:id', (request: express.Request, response: express.Response) => {
-    for (let article of articles) {
-        if (article.id == Number(request.params.id)) {
-            response.send(article);
-            return;
+// Get an article given its id - with comments and categories
+server.get('/articles/:id', function (request, response) { return __awaiter(_this, void 0, void 0, function () {
+    var _a, _b;
+    return __generator(this, function (_c) {
+        switch (_c.label) {
+            case 0:
+                _b = (_a = response).send;
+                return [4 /*yield*/, typeorm_1.getConnection().getRepository(databaseService_1.Article).findOneById(request.params.id, { relations: ["comments", "categories"] })];
+            case 1:
+                _b.apply(_a, [_c.sent()]);
+                return [2 /*return*/];
         }
-    }
-    // Respond with not found status code
-    response.sendStatus(404);
-});
-
+    });
+}); });
 // Add new article
-server.post('/articles', (request: express.Request, response: express.Response) => {
-    if (request.body && typeof request.body.title == 'string' && typeof request.body.abstract == 'string' && typeof request.body.text == 'string') {
-        articles.push(new Article(request.body.title, request.body.abstract, request.body.text));
-        response.send(articles[articles.length - 1].id.toString());
-        return;
-    }
-    // Respond with bad request status code
-    response.sendStatus(400);
-});
-
-console.log("Creating connection");
-createConnection({
-    type: "mysql",
-    host: "mysql.stud.iie.ntnu.no",
-    port: 3306,
-    username: "jonev",
-    password: "MSLSFNi7",
-    database: "jonev",
-    entities: [
-        Article
-    ],
-    synchronize: true,
-    logging: false
-}).then(async connection => {
-    // here you can start to work with your entities
-    console.log("Trying to make article");
-    const article = new Article();
-    article.title = "Artivle title";
-    article.abstract = "Article abstract";
-    article.text = "Article text";
-    article.vote = 0;
-    await article.save();
-
-    const allUsers = await Article.find();
-    console.log(allUsers);
-
-}).catch(error => console.log(error));
-*/
+server.post('/articles', function (request, response) { return __awaiter(_this, void 0, void 0, function () {
+    var newarticle, _a, _b;
+    return __generator(this, function (_c) {
+        switch (_c.label) {
+            case 0:
+                if (!(request.body && typeof request.body.title == 'string' && typeof request.body.abstract == 'string' && typeof request.body.text == 'string')) return [3 /*break*/, 2];
+                newarticle = new databaseService_1.Article();
+                newarticle.made = new Date();
+                newarticle.title = request.body.title;
+                newarticle.abstract = request.body.abstract;
+                newarticle.text = request.body.text;
+                newarticle.vote = 0;
+                newarticle.categories = request.body.categories;
+                _b = (_a = response).send;
+                return [4 /*yield*/, typeorm_1.getConnection().getRepository(databaseService_1.Article).save(newarticle)];
+            case 1: return [2 /*return*/, _b.apply(_a, [_c.sent()])];
+            case 2:
+                // Respond with bad request status code
+                response.sendStatus(400);
+                return [2 /*return*/];
+        }
+    });
+}); });
+// update article - mostly for categories
+server.put('/articles/:id', function (request, response) { return __awaiter(_this, void 0, void 0, function () {
+    var updatedarticle, _a, _b;
+    return __generator(this, function (_c) {
+        switch (_c.label) {
+            case 0:
+                if (!(request.body && typeof request.body.title == 'string' && typeof request.body.abstract == 'string' && typeof request.body.text == 'string')) return [3 /*break*/, 3];
+                return [4 /*yield*/, typeorm_1.getConnection().getRepository(databaseService_1.Article).findOneById(request.params.id, { relations: ["comments", "categories"] })];
+            case 1:
+                updatedarticle = _c.sent();
+                updatedarticle.title = request.body.title;
+                updatedarticle.abstract = request.body.abstract;
+                updatedarticle.text = request.body.text;
+                updatedarticle.categories = request.body.categories;
+                _b = (_a = response).send;
+                return [4 /*yield*/, typeorm_1.getConnection().getRepository(databaseService_1.Article).save(updatedarticle)];
+            case 2: return [2 /*return*/, _b.apply(_a, [_c.sent()])];
+            case 3:
+                // Respond with bad request status code
+                response.sendStatus(400);
+                return [2 /*return*/];
+        }
+    });
+}); });
+// get all comments for one article
+server.get('comment/:id', function (request, response) { return __awaiter(_this, void 0, void 0, function () {
+    var _a, _b;
+    return __generator(this, function (_c) {
+        switch (_c.label) {
+            case 0:
+                _b = (_a = response).send;
+                return [4 /*yield*/, typeorm_1.getConnection().getRepository(databaseService_1.ArticleComment).find({ article: request.params.id })];
+            case 1:
+                _b.apply(_a, [_c.sent()]);
+                return [2 /*return*/];
+        }
+    });
+}); });
+// post comment on one article
+server.post('/comment/:id', function (request, response) { return __awaiter(_this, void 0, void 0, function () {
+    var newcomment, _a, _b, _c;
+    return __generator(this, function (_d) {
+        switch (_d.label) {
+            case 0:
+                newcomment = new databaseService_1.ArticleComment();
+                newcomment.text = request.body.text;
+                newcomment.made = new Date();
+                _a = newcomment;
+                return [4 /*yield*/, typeorm_1.getConnection().getRepository(databaseService_1.Article).findOneById(request.params.id)];
+            case 1:
+                _a.article = _d.sent();
+                _c = (_b = response).send;
+                return [4 /*yield*/, typeorm_1.getConnection().getRepository(databaseService_1.ArticleComment).save(newcomment)];
+            case 2:
+                _c.apply(_b, [_d.sent()]);
+                return [2 /*return*/];
+        }
+    });
+}); });
+// get all categories
+server.get('/categories', function (request, response) { return __awaiter(_this, void 0, void 0, function () {
+    var _a, _b;
+    return __generator(this, function (_c) {
+        switch (_c.label) {
+            case 0:
+                _b = (_a = response).send;
+                return [4 /*yield*/, typeorm_1.getConnection().getRepository(databaseService_1.Category).find()];
+            case 1:
+                _b.apply(_a, [_c.sent()]);
+                return [2 /*return*/];
+        }
+    });
+}); });
+// post category
+server.post('/categories', function (request, response) { return __awaiter(_this, void 0, void 0, function () {
+    var newcategory, _a, _b;
+    return __generator(this, function (_c) {
+        switch (_c.label) {
+            case 0:
+                newcategory = new databaseService_1.Category();
+                newcategory.text = request.body.text;
+                _b = (_a = response).send;
+                return [4 /*yield*/, typeorm_1.getConnection().getRepository(databaseService_1.Category).save(newcategory)];
+            case 1:
+                _b.apply(_a, [_c.sent()]);
+                return [2 /*return*/];
+        }
+    });
+}); });
 // Start the web server at port 3000
 server.listen(3000);
 //# sourceMappingURL=app.js.map

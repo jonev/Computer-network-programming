@@ -1,6 +1,6 @@
 {
   "name": "nodejs-server",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "NodejsServer",
   "main": "app.js",
   "author": {
