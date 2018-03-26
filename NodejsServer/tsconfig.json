@@ -2,10 +2,13 @@
   "compilerOptions": {
     "module": "commonjs",
     "target": "es5",
-    "lib": [ "es5", "es2015" ],
+    "lib": [ "es5", "es2015", "dom" ],
     "sourceMap": true,
     "emitDecoratorMetadata": true,
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "outDir": "build/dist",
+    "rootDir": "src",
+    "jsx": "react"
   },
   "exclude": [
     "node_modules"

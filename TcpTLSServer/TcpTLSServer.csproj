@@ -38,7 +38,7 @@
     <ManifestCertificateThumbprint>1B73C1DDE986CBAF9D9B5A18D71AAAC65EEF111B</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>TcpTLSServer_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>Certificates\TcpTLSServer_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />

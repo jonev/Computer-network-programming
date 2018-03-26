@@ -7,6 +7,7 @@ import { Article, ArticleComment, Category } from './databaseService';
 import { createConnection, getConnection } from "typeorm";
 import { arch } from 'os';
 import { request } from 'https';
+import * as React from 'react';
 
 
 console.log('Server starting');
@@ -34,6 +35,12 @@ createConnection({
     console.log("Connection established");
 }).catch(error => console.log(error));
 
+
+
+
+server.get('/', async (request: express.Request, response: express.Response) => {
+    response.sendFile(__dirname + '/index.html');
+});
 
 // Get all articles - without comments
 server.get('/articles', async (request: express.Request, response: express.Response) => {
