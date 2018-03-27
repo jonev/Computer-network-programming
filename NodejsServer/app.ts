@@ -34,6 +34,16 @@ createConnection({
     console.log("Connection established");
 }).catch(error => console.log(error));
 
+server.get('/', async (request: express.Request, response: express.Response) => {
+    response.sendFile(__dirname + "/index.html");
+    
+});
+
+server.get('/index.js', async (request: express.Request, response: express.Response) => {
+    response.sendFile(__dirname + "/index.js");
+});
+
+
 
 // Get all articles - without comments
 server.get('/articles', async (request: express.Request, response: express.Response) => {

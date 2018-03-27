@@ -17,5 +17,8 @@
     "@types/node": "^6.0.87",
     "@types/sequelize": "^4.27.11",
     "typeorm": "^0.1.16"
+  },
+  "scripts": {
+    "start": "tsc"
   }
 }

@@ -68,6 +68,18 @@ typeorm_1.createConnection({
         return [2 /*return*/];
     });
 }); }).catch(function (error) { return console.log(error); });
+server.get('/', function (request, response) { return __awaiter(_this, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        response.sendFile(__dirname + "/index.html");
+        return [2 /*return*/];
+    });
+}); });
+server.get('/index.js', function (request, response) { return __awaiter(_this, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        response.sendFile(__dirname + "/index.js");
+        return [2 /*return*/];
+    });
+}); });
 // Get all articles - without comments
 server.get('/articles', function (request, response) { return __awaiter(_this, void 0, void 0, function () {
     var _a, _b;
