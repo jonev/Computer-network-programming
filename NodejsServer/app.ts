@@ -12,6 +12,8 @@ import { request } from 'https';
 console.log('Server starting');
 let server = express();
 
+server.use(express.static(__dirname + '/../client'));
+
 // Automatically parse json content
 server.use(bodyParser.json());
 
