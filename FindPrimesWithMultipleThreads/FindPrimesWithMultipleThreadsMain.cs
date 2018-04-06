@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FindPrimesWithMultipleThreads
 {
-    class FindPrimesWithMultipleThreadsMain
+    public class FindPrimesWithMultipleThreadsMain
     {
         private static int fromInt = 1;
         private static int toInt = 1000000;
