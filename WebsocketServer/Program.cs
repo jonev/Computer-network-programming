@@ -8,7 +8,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 
 // source
 // https://github.com/statianzo/Fleck/tree/master/src/Samples/ConsoleApp
@@ -17,13 +17,10 @@ namespace WebsocketServer
 {
     class Program
     {
-        public static byte[] ImageToByteArray(System.Drawing.Image imageIn)
+        public static byte[] ImageToByte(Image img)
         {
-            using (var ms = new MemoryStream())
-            {
-                imageIn.Save(ms, imageIn.RawFormat);
-                return ms.ToArray();
-            }
+            ImageConverter converter = new ImageConverter();
+            return (byte[])converter.ConvertTo(img, typeof(byte[]));
         }
         static void Main(string[] args)
         {
@@ -49,19 +46,20 @@ namespace WebsocketServer
                 };
             });
 
-
-            var input = Console.ReadLine();
-            while (input != "exit")
+            
+            while(true)
             {
                 ScreenCapture sc = new ScreenCapture();
                 // capture entire screen, and save it to a file
                 Image img = sc.CaptureScreen();
-                // display image in a Picture control named imageDisplay
+                //img to byte[]
+                byte[] imgAsArray = ImageToByte(img);
                 foreach (var socket in allSockets.ToList())
                 {
-                    socket.Send(ImageToByteArray(img));
+                    Console.WriteLine(socket.Send(imgAsArray));
+
                 }
-                input = Console.ReadLine();
+                Thread.Sleep(10000);
             }
         }
     }
