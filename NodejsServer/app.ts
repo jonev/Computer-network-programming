@@ -52,7 +52,7 @@ server.get('/articles/popularity', async (request: express.Request, response: ex
     let unsortedArray = await getConnection().getRepository(Article).find({ relations: ["categories"] });
     var sortedArray: Article[] = unsortedArray.sort((obj1, obj2) => {
         var time1 = Date.now() - +(new Date(obj1.made)) * 2400 / (1000 * 60 * 60);
-        var time2 = Date.now() - +(new Date(obj1.made)) * 2400 / (1000 * 60 * 60);
+        var time2 = Date.now() - +(new Date(obj2.made)) * 2400 / (1000 * 60 * 60);
         if (obj1.vote - time1  < obj2.vote - time2) {
             return 1;
         }
