@@ -1,6 +1,9 @@
 ﻿using Fleck;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
@@ -14,6 +17,14 @@ namespace WebsocketServer
 {
     class Program
     {
+        public static byte[] ImageToByteArray(System.Drawing.Image imageIn)
+        {
+            using (var ms = new MemoryStream())
+            {
+                imageIn.Save(ms, imageIn.RawFormat);
+                return ms.ToArray();
+            }
+        }
         static void Main(string[] args)
         {
             FleckLog.Level = LogLevel.Debug;
@@ -42,12 +53,17 @@ namespace WebsocketServer
             var input = Console.ReadLine();
             while (input != "exit")
             {
+                ScreenCapture sc = new ScreenCapture();
+                // capture entire screen, and save it to a file
+                Image img = sc.CaptureScreen();
+                // display image in a Picture control named imageDisplay
                 foreach (var socket in allSockets.ToList())
                 {
-                    socket.Send(input);
+                    socket.Send(ImageToByteArray(img));
                 }
                 input = Console.ReadLine();
             }
         }
     }
 }
+    
