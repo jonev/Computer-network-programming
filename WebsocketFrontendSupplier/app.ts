@@ -8,6 +8,6 @@ let server = express();
 
 server.use(bodyParser.json());
 
-server.use(express.static(__dirname + '/../streamingFrontend'));
+server.use(express.static(__dirname + '/../WebsocketFrontend'));
 
 server.listen(3000);

@@ -89,7 +89,7 @@ server.post('/articles', async (request: express.Request, response: express.Resp
 // update article - mostly for categories
 server.put('/articles/:id', async (request: express.Request, response: express.Response) => {
     if (request.body && typeof request.body.title == 'string' && typeof request.body.abstract == 'string' && typeof request.body.text == 'string') {
-        let updatedarticle = await getConnection().getRepository(Article).  (request.params.id, { relations: ["comments", "categories"] });
+        let updatedarticle = await getConnection().getRepository(Article).findOneById(request.params.id, { relations: ["comments", "categories"] });
         updatedarticle.title = request.body.title;
         updatedarticle.abstract = request.body.abstract;
         updatedarticle.text = request.body.text;
