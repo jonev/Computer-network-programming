@@ -45,6 +45,7 @@ var databaseService_1 = require("./databaseService");
 var typeorm_1 = require("typeorm");
 console.log('Server starting');
 var server = express();
+server.use(express.static(__dirname + '/../ReactFrontend'));
 // Automatically parse json content
 server.use(bodyParser.json());
 console.log("Creating connection");
@@ -68,6 +69,13 @@ typeorm_1.createConnection({
         return [2 /*return*/];
     });
 }); }).catch(function (error) { return console.log(error); });
+var popularsort = function (obj1, obj2) {
+    var time1 = Date.now() - +(new Date(obj1.made));
+    var time2 = Date.now() - +(new Date(obj2.made));
+    var score1 = obj1.vote - time1 * 1 / (1000 * 60 * 60);
+    var score2 = obj2.vote - time2 * 1 / (1000 * 60 * 60);
+    return score2 - score1;
+};
 // Get all articles - without comments
 server.get('/articles', function (request, response) { return __awaiter(_this, void 0, void 0, function () {
     var _a, _b;
@@ -78,6 +86,36 @@ server.get('/articles', function (request, response) { return __awaiter(_this, v
                 return [4 /*yield*/, typeorm_1.getConnection().getRepository(databaseService_1.Article).find({ relations: ["categories"] })];
             case 1:
                 _b.apply(_a, [_c.sent()]);
+                return [2 /*return*/];
+        }
+    });
+}); });
+// Get all articles on popularity - without comments
+server.get('/articles/popularity', function (request, response) { return __awaiter(_this, void 0, void 0, function () {
+    var unsortedArray, sortedArray;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, typeorm_1.getConnection().getRepository(databaseService_1.Article).find({ relations: ["categories"] })];
+            case 1:
+                unsortedArray = _a.sent();
+                sortedArray = unsortedArray.sort(popularsort);
+                response.send(sortedArray);
+                return [2 /*return*/];
+        }
+    });
+}); });
+// Get all articles on popularity given category - without comments
+server.get('/articles/popularity/:id', function (request, response) { return __awaiter(_this, void 0, void 0, function () {
+    var unsortedArray, sortedArray;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, typeorm_1.getConnection().getRepository(databaseService_1.Category).find({
+                    relations: ["articles"], where: { id: request.params.id }
+                })];
+            case 1:
+                unsortedArray = _a.sent();
+                sortedArray = unsortedArray[0].articles.sort(popularsort);
+                response.send(sortedArray);
                 return [2 /*return*/];
         }
     });
@@ -140,6 +178,23 @@ server.put('/articles/:id', function (request, response) { return __awaiter(_thi
             case 3:
                 // Respond with bad request status code
                 response.sendStatus(400);
+                return [2 /*return*/];
+        }
+    });
+}); });
+// update votes on article
+server.put('/articles/:id/:vote', function (request, response) { return __awaiter(_this, void 0, void 0, function () {
+    var updatedarticle, _a, _b;
+    return __generator(this, function (_c) {
+        switch (_c.label) {
+            case 0: return [4 /*yield*/, typeorm_1.getConnection().getRepository(databaseService_1.Article).findOneById(request.params.id)];
+            case 1:
+                updatedarticle = _c.sent();
+                updatedarticle.vote += parseInt(request.params.vote);
+                _b = (_a = response).send;
+                return [4 /*yield*/, typeorm_1.getConnection().getRepository(databaseService_1.Article).save(updatedarticle)];
+            case 2:
+                _b.apply(_a, [_c.sent()]);
                 return [2 /*return*/];
         }
     });

@@ -36,33 +36,10 @@ createConnection({
     console.log("Connection established");
 }).catch(error => console.log(error));
 
-let popularsort: (obj1: Article, obj2: Article) => number = (obj1, obj2) => {
-    let time1 = Date.now() - +(new Date(obj1.made));
-    let time2 = Date.now() - +(new Date(obj2.made));
-    let score1 = obj1.vote - time1 * 1 / (1000 * 60 * 60);
-    let score2 = obj2.vote - time2 * 1 / (1000 * 60 * 60);
-    return score2 - score1;
-}
 
 // Get all articles - without comments
 server.get('/articles', async (request: express.Request, response: express.Response) => {
     response.send(await getConnection().getRepository(Article).find({ relations: ["categories"] }));
-});
-
-// Get all articles on popularity - without comments
-server.get('/articles/popularity', async (request: express.Request, response: express.Response) => {
-    let unsortedArray: Article[] = await getConnection().getRepository(Article).find({ relations: ["categories"] });
-    let sortedArray: Article[] = unsortedArray.sort(popularsort);
-    response.send(sortedArray);
-});
-
-// Get all articles on popularity given category - without comments
-server.get('/articles/popularity/:id', async (request: express.Request, response: express.Response) => {
-    let unsortedArray = await getConnection().getRepository(Category).find({
-        relations: ["articles"], where: { id: request.params.id }
-    });
-    let sortedArray: Article[] = unsortedArray[0].articles.sort(popularsort);
-    response.send(sortedArray);
 });
 
 // Get an article given its id - with comments and categories
@@ -98,12 +75,6 @@ server.put('/articles/:id', async (request: express.Request, response: express.R
     }
     // Respond with bad request status code
     response.sendStatus(400);
-});
-// update votes on article
-server.put('/articles/:id/:vote', async (request: express.Request, response: express.Response) => {
-    let updatedarticle: Article = await getConnection().getRepository(Article).findOneById(request.params.id);
-    updatedarticle.vote += parseInt(request.params.vote);
-    response.send(await getConnection().getRepository(Article).save(updatedarticle));
 });
 
 // get all comments for one article

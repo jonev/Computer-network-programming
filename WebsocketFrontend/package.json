@@ -1,0 +1,24 @@
+{
+  "name": "Streamingfrontend",
+  "version": "1.0.0",
+  "description": "Frontend for streaming video files over WebSocket",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack --watch"
+  },
+  "author": "kape142",
+  "license": "ISC",
+  "dependencies": {
+    "@types/react": "^16.3.5",
+    "@types/react-dom": "^16.0.4",
+    "react": "^16.3.1",
+    "react-dom": "^16.3.1",
+    "webpack": "^2.2.1"
+  },
+  "devDependencies": {
+    "awesome-typescript-loader": "^4.0.1",
+    "source-map-loader": "^0.2.3",
+    "typescript": "^2.8.1"
+  }
+}

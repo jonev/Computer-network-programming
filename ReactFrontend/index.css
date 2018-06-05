@@ -1,0 +1,116 @@
+.title{
+    font-size: 2em;
+    text-align: center;
+}
+
+.article{
+    margin-bottom: 20px;
+}
+
+.articleTitle{
+    vertical-align: middle;
+    margin: 0;
+}
+
+.articleTextPostImage {
+    vertical-align: sub;
+    margin-right: 20px;
+}
+
+.articleAbstract{
+    margin: 0;
+}
+
+.articleMain{
+    display: inline-block;
+}
+
+.expandButton{
+    display: block;
+}
+
+.articleBody {
+    border: 0.01em solid black;
+    border-radius: 10px;
+    padding: 5px;
+    width: 60%;
+    margin-top: 10px;
+}
+
+.articleTags{
+
+}
+
+.articleForm {
+    border: solid black 0.01em;
+    width: 40%;
+    padding: 10px;
+}
+
+.articleFormPart{
+    margin: 5px 0;
+}
+
+.arrow {
+    border: solid black;
+    border-width: 0 6px 6px 0;
+    display: inline-block;
+    padding: 6px;
+    margin: 2px;
+}
+
+.arrow:hover{
+    border-color: #333333;
+}
+
+.up {
+    transform: rotate(-135deg);
+    -webkit-transform: rotate(-135deg);
+}
+
+.down {
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+}
+
+.votation {
+    height: 70px;
+    width: 24px;
+    display: inline-block;
+    vertical-align: baseline;
+}
+
+.upvote{
+    border-color: #ff6a00;
+}
+
+.upvote:hover{
+    border-color: #dd3a00;
+}
+
+.downvote{
+    border-color: #0094ff;
+}
+
+.downvote:hover{
+    border-color: #0064dd;
+}
+
+.articleVoteNumber {
+    font-size: 1.2em;
+    text-align: center;
+}
+
+.articleComments{
+    margin-top: 10px;
+    border: solid black 1px;
+    width: 40%;
+    background-color: #eee;
+}
+
+.comment{
+    border-bottom: solid black 1px;
+    border-top: solid black 1px;
+    margin: 5px 0;
+    background-color: #ddd;
+}
